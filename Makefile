@@ -1,13 +1,14 @@
 SCRIPTS := $(wildcard *.sh *.py *.rb)
 TARGETS := $(addprefix ~/bin/,$(basename $(notdir $(SCRIPTS))))
 
-default: $(TARGETS)
+install: | $(TARGETS)
+.PHONY: install
 
 ~/bin/%: | %.py
-	echo ln -s $(PWD)/$?.py $@
+	ln -s $(PWD)/$| $@
 
 ~/bin/%: | %.rb
-	echo ln -s $(PWD).rb $@
+	ln -s $(PWD)/$| $@
 
 ~/bin/%: | %.sh
-	echo ln -s $(PWD).sh $@
+	ln -s $(PWD)/$| $@

@@ -8,7 +8,7 @@ pandoc \
 	"$1" \
 	--lua-filter <( cat <<'EOLUA'
 local function starts_with(start, str)
-	return str:sub(1, #start) == start
+	return str:sub(1, start:len()) == start
 end
 
 return {
@@ -39,7 +39,7 @@ return {
 		end,
 
 		Link = function (elem)
-			if (starts_with("#", elem.target) and #elem.content == 0) then
+			if (starts_with("#", elem.target) and next(elem.content) == nil) then
 				return {}
 			end
 

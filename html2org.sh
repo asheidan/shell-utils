@@ -3,6 +3,7 @@
 set -e
 
 pandoc \
+	--wrap=none \
 	-f html \
 	-t org \
 	"$1" \

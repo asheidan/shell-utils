@@ -13,4 +13,5 @@ function browser() {
         "$1"
 }
 
-browser $*
+browser $* 2> /dev/null
+

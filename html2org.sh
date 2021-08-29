@@ -2,11 +2,13 @@
 
 set -e
 
+input=${1:-'-'}
+
 pandoc \
 	--wrap=none \
 	-f html \
 	-t org \
-	"$1" \
+	"${input}" \
 	--lua-filter <( cat <<'EOLUA'
 local function starts_with(start, str)
 	return str:sub(1, start:len()) == start

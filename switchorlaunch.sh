@@ -2,4 +2,9 @@
 
 set -x
 
-i3-msg -q -- "[class=\"$1\"]" focus || (test -e "$2" && i3-msg -q exec "$2")
+window_class=$1
+shift 1
+
+executable=$1
+
+i3-msg -q -- "[class=\"${window_class}\"]" focus || (test -e "${executable}" && i3-msg -q -- exec "$@")

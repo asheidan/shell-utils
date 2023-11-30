@@ -1,13 +1,42 @@
 #!/bin/bash
 
-set -e
+set -e  # x
+
+output_format=org
+
+function show_help() {
+	cat << EOF
+USAGE:
+	$(basename "$0") [options] [infile]
+
+OPTIONS:
+	-t <output format>
+	-h                   Show this help
+EOF
+}
+
+OPTIND=1
+while getopts "h?t:" opt; do
+	case "${opt}" in
+		h|\?)
+			show_help
+			exit 0
+			;;
+		t)
+			output_format="${OPTARG}"
+			;;
+	esac
+done
+
+shift $((OPTIND-1))
+[ "${1:-}" = "--" ] && shift
 
 input=${1:-'-'}
 
 pandoc \
 	--wrap=none \
 	-f html \
-	-t org \
+	-t "${output_format}" \
 	"${input}" \
 	--lua-filter <( cat <<'EOLUA'
 local function starts_with(start, str)
